@@ -1,0 +1,52 @@
+body {
+    background: #fff !important;
+}
+.icon {
+    max-height: 24px;
+    width: 24px;
+}
+header {
+    font-family: 'Permanent Marker';
+    font-size: 24px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 0 48px;
+    box-sizing: border-box;
+}
+header .icon {
+    filter: brightness(0) saturate(100%) invert(35%) sepia(83%) saturate(1362%) hue-rotate(176deg) brightness(94%) contrast(98%);
+}
+header a {
+    text-shadow: none !important;
+    background: none !important;
+}
+a {
+    color: #0288d1 !important;
+    text-decoration: none !important;
+}
+nav {
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+}
+nav, nav ol {
+    display: flex;
+}
+nav img {
+    margin-left: 16px;
+}
+#tags {
+    display: flex;
+    align-items: center;
+}
+#tags a {
+    margin-right: 16px;
+}
+#tags .icon {
+    margin-right: 8px;
+}
+pre {
+    max-width: 55%;
+}

@@ -1,0 +1,13 @@
+[package]
+name = "etch"
+version = "0.1.0"
+authors = ["Rob Hurkes <rhurkes@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+lazy_static = "1.4.0"
+pulldown-cmark = "0.7.0"
+serde = "1.0.104"
+serde_derive = "1.0.104"
+syntect = "3.3.0"
+toml = "0.5.6"

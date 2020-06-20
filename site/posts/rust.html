@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&text=SIGTOR" rel="stylesheet">
+        <meta charset="utf-8"/>
+        <title>Kernel Heap</title>
+        <link rel="stylesheet" href="../static/css/main.css"/>
+        <link rel="stylesheet" href="https://edwardtufte.github.io/tufte-css/tufte.css"/>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div>
+                    <a href="https://sigtor.org">SIG TOR</a>
+                </div>
+                <div>
+                    <a href="https://github.com/rhurkes"><img class="icon" src="../static/img/github.svg" /></a>
+                    <a href="https://twitter.com/rhurkes"><img class="icon" src="../static/img/twitter.svg" /></a>
+                </div>
+            </nav>
+        </header>
+        <article>
+            <section id="title">
+                <h1>Kernel Heap</h1>
+                <div id="tags">
+                    <img class="icon" src="../static/img/tag.svg" />
+                    <a href="/tags/rust">rust</a><a href="/tags/programming">programming</a>
+                </div>
+                <div id="date">2016-04-11</div>
+            </section>
+            <section><p>In the previous posts we created a frame allocator and a page table module. Now we are ready to create a kernel heap and a memory allocator. Thus, we will unlock <code>Box</code>, <code>Vec</code>, <code>BTreeMap</code>, and the rest of the <code>alloc</code> crate.</p>
+<pre style="background-color:#fafafa;">
+<span style="background-color:#fafafa;color:#fa6e32;">pub unsafe trait </span><span style="background-color:#fafafa;color:#399ee6;">Alloc </span><span style="background-color:#fafafa;color:#61676c;">{
+    </span><span style="background-color:#fafafa;color:#fa6e32;">unsafe fn </span><span style="background-color:#fafafa;color:#f29718;">alloc</span><span style="background-color:#fafafa;color:#61676c;">(</span><span style="background-color:#fafafa;color:#ed9366;">&amp;</span><span style="background-color:#fafafa;color:#fa6e32;">mut </span><span style="background-color:#fafafa;color:#ff8f40;">self</span><span style="background-color:#fafafa;color:#61676c;">, </span><span style="background-color:#fafafa;color:#ff8f40;">layout</span><span style="background-color:#fafafa;color:#61676ccc;">:</span><span style="background-color:#fafafa;color:#61676c;"> Layout) </span><span style="background-color:#fafafa;color:#61676ccc;">-&gt; </span><span style="background-color:#fafafa;color:#61676c;">Result&lt;</span><span style="background-color:#fafafa;color:#f51818;">*</span><span style="background-color:#fafafa;color:#fa6e32;">mut u8</span><span style="background-color:#fafafa;color:#61676ccc;">,</span><span style="background-color:#fafafa;color:#61676c;"> AllocErr</span><span style="background-color:#fafafa;color:#ed9366;">&gt;</span><span style="background-color:#fafafa;color:#61676ccc;">;
+    </span><span style="background-color:#fafafa;color:#fa6e32;">unsafe fn </span><span style="background-color:#fafafa;color:#f29718;">dealloc</span><span style="background-color:#fafafa;color:#61676c;">(</span><span style="background-color:#fafafa;color:#ed9366;">&amp;</span><span style="background-color:#fafafa;color:#fa6e32;">mut </span><span style="background-color:#fafafa;color:#ff8f40;">self</span><span style="background-color:#fafafa;color:#61676c;">, </span><span style="background-color:#fafafa;color:#ff8f40;">ptr</span><span style="background-color:#fafafa;color:#61676ccc;">:</span><span style="background-color:#fafafa;color:#61676c;"> *</span><span style="background-color:#fafafa;color:#fa6e32;">mut u8</span><span style="background-color:#fafafa;color:#61676c;">, </span><span style="background-color:#fafafa;color:#ff8f40;">layout</span><span style="background-color:#fafafa;color:#61676ccc;">:</span><span style="background-color:#fafafa;color:#61676c;"> Layout)</span><span style="background-color:#fafafa;color:#61676ccc;">;
+    </span><span style="background-color:#fafafa;color:#61676c;">[…] </span><span style="background-color:#fafafa;font-style:italic;color:#abb0b6;">// about 13 methods with default implementations
+</span><span style="background-color:#fafafa;color:#61676c;">}
+</span></pre><pre style="background-color:#fafafa;">
+<span style="background-color:#fafafa;color:#61676c;">pub unsafe trait Alloc {
+    unsafe fn alloc(&amp;mut self, layout: Layout) -&gt; Result&lt;*mut u8, AllocErr&gt;;
+    unsafe fn dealloc(&amp;mut self, ptr: *mut u8, layout: Layout);
+    […] // about 13 methods with default implementations
+}
+</span></pre>
+<p>The <code>alloc</code> method should allocate a memory block with the size and alignment given through <code>Layout</code> parameter. The <code>deallocate</code> method should free such memory blocks again. Both methods are <code>unsafe</code>, as is the trait itself. This has different reasons:</p>
+</section>
+        </article>
+        <footer>
+            <span id="copyright">© Rob Hurkes</span>
+        </footer>
+    </body>
+</html>

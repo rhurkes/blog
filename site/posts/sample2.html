@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&text=SIGTOR" rel="stylesheet">
+        <meta charset="utf-8"/>
+        <title>For the Love of Pipes</title>
+        <link rel="stylesheet" href="../static/css/main.css"/>
+        <link rel="stylesheet" href="https://edwardtufte.github.io/tufte-css/tufte.css"/>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div>
+                    <a href="https://sigtor.org">SIG TOR</a>
+                </div>
+                <div>
+                    <a href="https://github.com/rhurkes"><img class="icon" src="../static/img/github.svg" /></a>
+                    <a href="https://twitter.com/rhurkes"><img class="icon" src="../static/img/twitter.svg" /></a>
+                </div>
+            </nav>
+        </header>
+        <article>
+            <section id="title">
+                <h1>For the Love of Pipes</h1>
+                <div id="tags">
+                    <img class="icon" src="../static/img/tag.svg" />
+                    <a href="/tags/misc">misc</a>
+                </div>
+                <div id="date">2019-01-21T08:09:26-07:00</div>
+            </section>
+            <section><p>My top used shell command is <code>|</code>. This is called a pipe.</p>
+<p>In brief, the <code>|</code> allows for the output of one program (on the left) to become
+the input of another program (on the right). It is a way of connecting two
+commands together. </p>
+<p>For example, if I were to run the following:</p>
+<pre style="background-color:#fafafa;">
+<span style="background-color:#fafafa;color:#61676c;">echo &quot;hello&quot;
+</span></pre>
+<p>I get the output <code>hello</code>.</p>
+<p>But if I run:</p>
+<pre style="background-color:#fafafa;">
+<span style="background-color:#fafafa;color:#61676c;">echo &quot;hello&quot; | figlet
+</span></pre>
+<p>The <code>figlet</code> program, changes the letters in <code>hello</code> to look all bubbly and
+cartoony.</p>
+<p>This is a really blunt way of describing something that, in my
+opinion, is brilliant software design, but I will get into that in a second.</p>
+<p>Let's go back to the origin of pipes.</p>
+<p>According to <a href="http://doc.cat-v.org/unix/pipes/">doc.cat-v.org/unix/pipes/</a>, the
+origin of pipes came long before Unix. Pipes can be traced back to this note from
+Doug McIlroy in 1964:</p>
+<pre style="background-color:#fafafa;">
+<span style="background-color:#fafafa;color:#61676c;">          - 10 -
+    Summary--what&#39;s most important.
+
+To put my strongest concerns into a nutshell:
+
+1. We should have some ways of coupling programs like
+garden hose--screw in another segment when it becomes when
+it becomes necessary to massage data in another way.
+This is the way of IO also.
+
+2. Our loader should be able to do link-loading and
+controlled establishment.
+
+3. Our library filing scheme should allow for rather
+general indexing, responsibility, generations, data path
+switching.
+
+4. It should be possible to get private system components
+(all routines are system components) for buggering around with.
+
+                                                M. D. McIlroy
+                                                October 11, 1964 
+</span></pre>
+<p>The Unix philosophy is documented by Doug McIlroy as:</p>
+<ol>
+<li>
+<p>Make each program do one thing well. To do a new job, build afresh rather 
+than complicate old programs by adding new &quot;features&quot;.</p>
+</li>
+<li>
+<p>Expect the output of every program to become the input to another, 
+as yet unknown, program. Don't clutter output with extraneous information. 
+Avoid stringently columnar or binary input formats. 
+Don't insist on interactive input.</p>
+</li>
+<li>
+<p>Design and build software, even operating systems, to be tried early, 
+ideally within weeks. 
+Don't hesitate to throw away the clumsy parts and rebuild them.</p>
+</li>
+<li>
+<p>Use tools in preference to unskilled help to lighten a programming task, 
+even if you have to detour to build the tools and expect to throw some of 
+them out after you've finished using them.</p>
+</li>
+</ol>
+<blockquote>
+<p>From the <a href="http://emulator.pdp-11.org.ru/misc/1978.07_-_Bell_System_Technical_Journal.pdf">Bell Systems Technical Journal</a></p>
+</blockquote>
+<p>What I love about Unix is the philosophy of &quot;do one thing well&quot; and &quot;expect the output of every 
+program to become the input to another&quot;. This
+philosophy is built on the use of tools. These tools can be used separately or
+combined to get a job done. This is in stark contrast to monolithic programs that do
+everything or one-off programs used to solve a specific problem.</p>
+<p>System programs and commands like <code>echo</code>, which we saw above, output information to your terminal by
+default. For example, <code>cat</code> will &quot;concatenate&quot; (its namesake)
+files and print the result to your terminal.
+While reading <a href="http://harmful.cat-v.org/cat-v/unix_prog_design.pdf">Program design in Unix</a>,
+I realized that printing the output of the tool to the user's terminal was actually the
+special case. </p>
+<blockquote>
+<p>&quot;Perhaps surprisingly, in practice it turns
+out that the special case is the main use of the program.&quot;</p>
+</blockquote>
+<p>When a user redirects the output of <code>cat</code> via a <code>|</code> to some other program,
+<code>cat</code> becomes so much more than what
+the original author intended. This is one of the most brilliant design
+patterns, in my opinion.  For one, programs being simple and doing one thing
+well makes them easy to grok. The beautiful part, though, is the fact that in 
+combination with a operator like
+<code>|</code> the program becomes one step in a much larger plan. The original author of
+<code>cat</code> does not even need to know about the larger plan. That is the beauty of
+the <code>|</code> it allows for solving problems by combining small,
+simple programs together.</p>
+<p>I love software design that enables creativity, values simplicity, and doesn't put users in a box.
+The pipe, is a key element for keeping programs simple while enabling
+extensibility. A simple program in combination with a <code>|</code> becomes so much more than what the
+original author could have dreamed of.</p>
+<p>I hope this post helped you learn something, if not, just pipe it to
+<code>/dev/null</code>.</p>
+</section>
+        </article>
+        <footer>
+            <span id="copyright">© Rob Hurkes</span>
+        </footer>
+    </body>
+</html>
