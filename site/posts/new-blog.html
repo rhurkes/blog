@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Kernel Heap</title>
+        <title>New Blog</title>
         <link rel="stylesheet" href="../static/css/main.css"/>
     </head>
     <body>
@@ -27,25 +27,45 @@
         </header>
         <article>
             <section id="title">
-                <h1>Kernel Heap</h1>
-                <div id="date">April 6, 2020</div>
-                <div id="tags"><a href="/tags/rust">rust</a>, <a href="/tags/programming">programming</a></div>
+                <h1>New Blog</h1>
+                <div id="date">June 27, 2020</div>
+                <div id="tags"><a href="/tags/programming">programming</a>, <a href="/tags/rust">rust</a></div>
             </section>
-            <section><p>In the previous posts we created a frame allocator and a page table module. Now we are ready to create a kernel heap and a memory allocator. Thus, we will unlock <code>Box</code>, <code>Vec</code>, <code>BTreeMap</code>, and the rest of the <code>alloc</code> crate.</p>
+            <section><p>Over ten years ago, I started my first blog, with the intention of writing an entry for every day that I went storm chasing. I quit after three posts.<label for="sn-tor" class="margin-toggle"></label><input type="checkbox" id="sn-tor" class="margin-toggle"/><span class="marginnote"><img src="../static/img/042210.jpg" alt="042210.jpg" />My first tornado wasn't exactly awe-inspiring - the picture or the details behind it.</span> The site was built using Wordpress, and was slow due to the shared platform I chose and needlessly complex to configure the way I liked. I also didn't really understand what I wanted to write about or more importantly <em>why</em> I wanted to write. I've decided to give it another go for two primary reasons.</p>
+<p>Firstly, I think that writing has always been a valuable skill to have, but will probably become more important due to the proliferation of remote-working these days. Now I'm not a great writer by any means, but the only way to get better is with practice - so this is my practice.</p>
+<p>Secondly, there are significantly more experienced thoughts around software development, severe weather, photography and other topics. There have been multiple occasions where I've struggled to find the appropriate resource to share or have been told &quot;you should blog about that&quot; that it makes sense to finally do such a thing. The <em>what</em> and the <em>why</em> are actually questions I have answers for now.</p>
+<h2>Styling</h2>
+<p>I've long been a fan of Edward Tufte's work and wanted to incorporate some his ideas. I started by using <a href="https://edwardtufte.github.io/tufte-css/">Tufte CSS</a> as a base, but felt there were a few things I needed to change:</p>
+<ul>
+<li>&quot;Tufte yellow&quot; didn't really appeal to me, so that was changed to a default white background</li>
+<li>The suggested fonts made the site feel like a Tufte publication, which isn't desirable when you're looking to create your own distinct flavor. <em>Playfair Display</em> is a gorgeous font<label for="sn-sledgehammer" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-sledgehammer" class="margin-toggle"/><span class="sidenote"><img src="../static/img/sledgehammer.png" />Did you guess <a href="https://www.youtube.com/watch?v=OJWJE0x7T4Q">the inspiration</a> behind using <em>Playfair Display</em>?</span> and pairs nicely with <em>Futura</em>-like fonts, like <em>Nunito Sans</em> which is used here</li>
+<li>There are a lot of examples of clean, elegant blog designs such as <a href="https://blog.jessfraz.com/">Jessie Frazelle's blog</a>. I knew I wanted to make something similar - so I blended aspects of some of these sites into the Tufte base</li>
+</ul>
+<h2>Figures</h2>
+<p>An image is utilized by dropping a <code>figure</code>, which then contains a <code>span class=&quot;marginnote&quot;</code> tag and an <code>img</code> tag.</p>
+<p>You can also have full width figures, but giving the <code>figure</code> tag a class of <code>fullwidth</code>.</p>
+<h2>Epigraphs</h2>
+<blockquote>
+<p>The English language becomes ugly and inaccurate because our thoughts are foolish, but the slovenliness of our language makes it easier for us to have foolish thoughts.</p>
+<footer>George Orwell, “Politics and the English Language”</footer>
+</blockquote>
+<h2>Which blog software?</h2>
+<p>A key aspect to providing reliable software is <em>minimizing dependencies</em>, and hitting a database for static text seems unnecessary even with caching. Static site generators have been around for years now, and it seems silly to entertain using anything different in 2020.</p>
+<p>Which SSG to use, however? <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://gohugo.io/">Hugo</a> are very widely used, but I'm not really into the Ruby and Golang ecosystems. <a href="https://github.com/getzola/zola">Zola</a> is one of the more feature-rich ones in the Rust ecosystem where I prefer to spend time these days, but there were a few small bugs that popped up. This is when I thought that writing my own SSG might be fun. TODO link.</p>
+<h3>Goals</h3>
+<ul>
+<li>Static site: no dependencies that can break, no hosting providers, super fast page-load times. In 2020 this really shouldn't be a debate.</li>
+<li>No JavaScript: JavaScript leads to big, bloated sites and 3rd party tracking and privacy concerns, so it's easiest to say these blog posts are documents that don't need extra functionality.</li>
+<li>No Facebook referrals: Facebook has a history of privacy issues, and over 95% of its revenue is from advertising. I can't prevent friends and family from using Facebook, but I can ensure that I'm not contributing to its appeal in any way.</li>
+</ul>
 <pre class="code" style="background-color:#ffffff;">
 <span style="background-color:#ffffff;color:#8959a8;">pub unsafe trait </span><span style="background-color:#ffffff;color:#4d4d4c;">Alloc {
     </span><span style="background-color:#ffffff;color:#8959a8;">unsafe fn </span><span style="background-color:#ffffff;color:#4271ae;">alloc</span><span style="background-color:#ffffff;color:#4d4d4c;">(</span><span style="background-color:#ffffff;color:#3e999f;">&amp;</span><span style="background-color:#ffffff;color:#8959a8;">mut </span><span style="background-color:#ffffff;color:#f5871f;">self</span><span style="background-color:#ffffff;color:#4d4d4c;">, </span><span style="background-color:#ffffff;color:#f5871f;">layout</span><span style="background-color:#ffffff;color:#4d4d4c;">: Layout) -&gt; Result&lt;</span><span style="background-color:#c82829;color:#ffffff;">*</span><span style="background-color:#ffffff;color:#8959a8;">mut u8</span><span style="background-color:#ffffff;color:#4d4d4c;">, AllocErr</span><span style="background-color:#ffffff;color:#3e999f;">&gt;</span><span style="background-color:#ffffff;color:#4d4d4c;">;
     </span><span style="background-color:#ffffff;color:#8959a8;">unsafe fn </span><span style="background-color:#ffffff;color:#4271ae;">dealloc</span><span style="background-color:#ffffff;color:#4d4d4c;">(</span><span style="background-color:#ffffff;color:#3e999f;">&amp;</span><span style="background-color:#ffffff;color:#8959a8;">mut </span><span style="background-color:#ffffff;color:#f5871f;">self</span><span style="background-color:#ffffff;color:#4d4d4c;">, </span><span style="background-color:#ffffff;color:#f5871f;">ptr</span><span style="background-color:#ffffff;color:#4d4d4c;">: *</span><span style="background-color:#ffffff;color:#8959a8;">mut u8</span><span style="background-color:#ffffff;color:#4d4d4c;">, </span><span style="background-color:#ffffff;color:#f5871f;">layout</span><span style="background-color:#ffffff;color:#4d4d4c;">: Layout);
     […] </span><span style="background-color:#ffffff;color:#8e908c;">// about 13 methods with default implementations
 </span><span style="background-color:#ffffff;color:#4d4d4c;">}
-</span></pre><pre class="code" style="background-color:#ffffff;">
-<span style="background-color:#ffffff;color:#4d4d4c;">pub unsafe trait Alloc {
-    unsafe fn alloc(&amp;mut self, layout: Layout) -&gt; Result&lt;*mut u8, AllocErr&gt;;
-    unsafe fn dealloc(&amp;mut self, ptr: *mut u8, layout: Layout);
-    […] // about 13 methods with default implementations
-}
 </span></pre>
-<p>The <code>alloc</code> method should allocate a memory block with the size and alignment given through <code>Layout</code> parameter. The <code>deallocate</code> method should free such memory blocks again. Both methods are <code>unsafe</code>, as is the trait itself. This has different reasons:</p>
+<p>https://gemini.circumlunar.space/</p>
 </section>
         </article>
         <footer>

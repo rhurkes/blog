@@ -1,6 +1,7 @@
 # etch
 https://blog.jessfraz.com/post/for-the-love-of-pipes/
 https://blog.jessfraz.com/post/containers-security-and-echo-chambers/
+https://jesseduffield.com/beginners-guide-to-abstraction/
 
 +'s for toml front matter: https://gohugo.io/content-management/front-matter/
 
@@ -19,6 +20,7 @@ url:
 tags: []
 
 # TODO code
+all links should be target blank
 handle drafts
 Twitter embed isn't aligned on wide screen
 How to get footnotes and other Tufteisms working
@@ -40,3 +42,7 @@ index.html
 all.html
 static
     css/, img/, favicon.ico, robots.txt
+
+# Resources
+https://amio.github.io/embedded-google-fonts/
+https://codepen.io/sosuke/pen/Pjoqqp

@@ -1,6 +1,6 @@
 +++
 title = "Kernel Heap"
-date  = "2016-04-11"
+date  = "April 6, 2020"
 summary = "Doing some OS stuff in Rust"
 tags = ["rust", "programming"]
 +++

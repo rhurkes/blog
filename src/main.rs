@@ -17,7 +17,7 @@ const TOML_MARKER: &str = "+++";
 
 lazy_static! {
     static ref SYNTAX_SET: SyntaxSet = SyntaxSet::load_defaults_newlines();
-    static ref THEME: Theme = ThemeSet::get_theme("assets/ayu-light.tmTheme")
+    static ref THEME: Theme = ThemeSet::get_theme("assets/Tomorrow.tmTheme")
         .expect("Unable to load theme");
 }
 
@@ -80,7 +80,6 @@ fn main() {
 }
 
 fn get_summary_html(front_matter: &FrontMatter) -> String {
-    // TODO render tags
     format!(
         "<li><h3><a href=\"\"></a>{}</h3><div>{}</div><p>{}</p></li>",
         front_matter.title, front_matter.date.as_ref().unwrap(), front_matter.summary
@@ -107,6 +106,7 @@ fn process_post(base_html: &str, toml_options: Options, path: &PathBuf) -> Front
     let mut front_matter: FrontMatter = toml::from_str(&splits[1]).unwrap();
     let mut highlighter: Option<HighlightLines> = None;
 
+    // TODO break out into process_code_block()
     let parser = Parser::new_ext(&splits[2], toml_options).map(|event| {
         match event {
             Event::Text(text) => {
@@ -129,6 +129,10 @@ fn process_post(base_html: &str, toml_options: Options, path: &PathBuf) -> Front
                 }
 
                 let snippet = start_highlighted_html_snippet(&THEME);
+                // HACK: Add 'code' class to pre element TODO fix this?
+                // HACK: Funky color application
+                // let snippet = (snippet.0.replace("background-color:#c82829; color:#ffffff;", "background-color:#ffffff; color:#3e999f;"), snippet.1);
+                let snippet = (snippet.0.replace("pre", "pre class=\"code\""), snippet.1);
                 Event::Html(snippet.0.into())
             }
             Event::End(Tag::CodeBlock(_)) => {
@@ -147,9 +151,10 @@ fn process_post(base_html: &str, toml_options: Options, path: &PathBuf) -> Front
         front_matter.tags.push(String::from("misc"));
     }
 
-    front_matter.tags.iter().for_each(|tag| {
-        tags_html += &format!("<a href=\"/tags/{}\">{}</a>", tag, tag);
-    });
+    for (i, tag) in front_matter.tags.iter().enumerate() {
+        let comma = if i + 1 < front_matter.tags.len() { ", " } else { "" };
+        tags_html += &format!("<a href=\"/tags/{}\">{}</a>{}", tag, tag, comma);
+    }
 
     let html = base_html
         .replace("{{title}}", &front_matter.title)

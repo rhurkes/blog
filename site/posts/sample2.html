@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&text=SIGTOR" rel="stylesheet">
         <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>For the Love of Pipes</title>
         <link rel="stylesheet" href="../static/css/main.css"/>
-        <link rel="stylesheet" href="https://edwardtufte.github.io/tufte-css/tufte.css"/>
     </head>
     <body>
         <header>
             <nav>
                 <div>
-                    <a href="https://sigtor.org">SIG TOR</a>
+                    <a id="site" href="https://sigtor.org">
+                        <span>sig</span>
+                        <span style="font-style: italic;">tor</span>
+                    </a>
                 </div>
-                <div>
-                    <a href="https://github.com/rhurkes"><img class="icon" src="../static/img/github.svg" /></a>
-                    <a href="https://twitter.com/rhurkes"><img class="icon" src="../static/img/twitter.svg" /></a>
+                <div id="external">
+                    <a href="https://github.com/rhurkes">
+                        <svg class="icon" preserveAspectRatio="xMidYMid" version="1.1" viewBox="0 0 256 250" xmlns="http://www.w3.org/2000/svg"><path d="m128 0c-70.684 0-128 57.307-128 128 0 56.554 36.676 104.53 87.535 121.46 6.3971 1.1849 8.7457-2.7767 8.7457-6.1576 0-3.0523-0.1187-13.135-0.17381-23.831-35.61 7.7431-43.124-15.102-43.124-15.102-5.8227-14.795-14.212-18.729-14.212-18.729-11.614-7.9444 0.87541-7.7812 0.87541-7.7812 12.854 0.90297 19.622 13.191 19.622 13.191 11.416 19.569 29.944 13.911 37.249 10.641 1.1488-8.273 4.4661-13.92 8.1267-17.116-28.431-3.2367-58.318-14.212-58.318-63.259 0-13.975 5.0002-25.393 13.188-34.357-1.329-3.224-5.7103-16.243 1.24-33.874 0 0 10.749-3.4402 35.209 13.121 10.21-2.8361 21.16-4.2584 32.038-4.3071 10.878 0.048752 21.837 1.471 32.066 4.3071 24.431-16.561 35.165-13.121 35.165-13.121 6.9673 17.631 2.5838 30.65 1.2548 33.874 8.2073 8.964 13.174 20.382 13.174 34.357 0 49.163-29.944 59.988-58.447 63.157 4.5911 3.9722 8.6821 11.762 8.6821 23.704 0 17.127-0.14837 30.911-0.14837 35.127 0 3.4063 2.3041 7.3976 8.7923 6.1406 50.831-16.944 87.461-64.908 87.461-121.44 0-70.694-57.309-128-128-128zm-80.061 182.34c-0.28191 0.63589-1.2824 0.82666-2.1938 0.39002-0.9284-0.41757-1.4498-1.2845-1.1488-1.9225 0.27555-0.65497 1.2781-0.83726 2.2044-0.39849 0.93052 0.41757 1.4604 1.293 1.1382 1.931zm6.2962 5.618c-0.61046 0.56594-1.8038 0.30311-2.6135-0.59138-0.83726-0.89237-0.99411-2.0857-0.37518-2.6602 0.62953-0.56594 1.7869-0.30099 2.6262 0.59138 0.83726 0.90297 1.0005 2.0878 0.36246 2.6602zm4.3195 7.1881c-0.78427 0.54475-2.0667 0.033914-2.8594-1.1043-0.78427-1.1382-0.78427-2.5033 0.016957-3.0502 0.79487-0.54687 2.0582-0.05511 2.8615 1.0747 0.78215 1.1573 0.78215 2.5224-0.019077 3.0798zm7.3051 8.3248c-0.7016 0.77367-2.196 0.56595-3.2897-0.48964-1.1192-1.0323-1.4308-2.4969-0.72704-3.2706 0.71008-0.77579 2.2129-0.55747 3.3151 0.48964 1.1107 1.0301 1.4498 2.5054 0.7016 3.2706zm9.4412 2.8104c-0.30947 1.0026-1.7487 1.4583-3.1985 1.0323-1.4477-0.43877-2.3952-1.613-2.1027-2.6262 0.30099-1.009 1.7466-1.4838 3.207-1.028 1.4456 0.43665 2.3952 1.6025 2.0942 2.622zm10.744 1.1921c0.036034 1.0556-1.1934 1.931-2.7153 1.9501-1.5304 0.033914-2.7683-0.8203-2.7852-1.8589 0-1.0662 1.2018-1.9331 2.7322-1.9586 1.5219-0.029675 2.7683 0.81818 2.7683 1.8674zm10.555-0.4046c0.18229 1.0301-0.87541 2.0878-2.3867 2.3698-1.4859 0.27131-2.8615-0.36458-3.0502-1.3862-0.18441-1.0556 0.89237-2.1133 2.3761-2.3867 1.5134-0.26284 2.8679 0.3561 3.0608 1.4032z" /></svg>
+                    </a>
+                    <a href="https://twitter.com/rhurkes">
+                        <svg class="icon" preserveAspectRatio="xMidYMid" version="1.1" viewBox="0 0 256 209" xmlns="http://www.w3.org/2000/svg"><path d="m256 25.45c-9.4192 4.1772-19.542 7.0005-30.166 8.2702 10.844-6.5004 19.172-16.793 23.093-29.057-10.148 6.0182-21.388 10.389-33.351 12.745-9.5812-10.208-23.231-16.586-38.337-16.586-29.007 0-52.523 23.516-52.523 52.52 0 4.1164 0.46539 8.1251 1.3606 11.969-43.651-2.1902-82.351-23.1-108.26-54.875-4.5209 7.7571-7.111 16.779-7.111 26.404 0 18.221 9.2731 34.297 23.366 43.715-8.6101-0.27249-16.708-2.635-23.79-6.5688-0.0037455 0.21912-0.0037455 0.43917-0.0037455 0.66016 0 25.447 18.104 46.675 42.131 51.5-4.4076 1.2005-9.0474 1.8419-13.838 1.8419-3.3841 0-6.6746-0.32867-9.8808-0.94201 6.683 20.867 26.079 36.051 49.062 36.475-17.975 14.086-40.622 22.483-65.228 22.483-4.239 0-8.42-0.24814-12.529-0.7332 23.243 14.902 50.851 23.596 80.511 23.596 96.606 0 149.43-80.031 149.43-149.43 0-2.2773-0.050565-4.5424-0.1517-6.7945 10.261-7.405 19.166-16.656 26.208-27.188" /></svg>
+                    </a>
                 </div>
             </nav>
         </header>
         <article>
             <section id="title">
                 <h1>For the Love of Pipes</h1>
-                <div id="tags">
-                    <img class="icon" src="../static/img/tag.svg" />
-                    <a href="/tags/misc">misc</a>
-                </div>
                 <div id="date">2019-01-21T08:09:26-07:00</div>
+                <div id="tags"><a href="/tags/misc">misc</a></div>
             </section>
             <section><p>My top used shell command is <code>|</code>. This is called a pipe.</p>
 <p>In brief, the <code>|</code> allows for the output of one program (on the left) to become
 the input of another program (on the right). It is a way of connecting two
 commands together. </p>
 <p>For example, if I were to run the following:</p>
-<pre style="background-color:#fafafa;">
-<span style="background-color:#fafafa;color:#61676c;">echo &quot;hello&quot;
+<pre class="code" style="background-color:#ffffff;">
+<span style="background-color:#ffffff;color:#4d4d4c;">echo &quot;hello&quot;
 </span></pre>
 <p>I get the output <code>hello</code>.</p>
 <p>But if I run:</p>
-<pre style="background-color:#fafafa;">
-<span style="background-color:#fafafa;color:#61676c;">echo &quot;hello&quot; | figlet
+<pre class="code" style="background-color:#ffffff;">
+<span style="background-color:#ffffff;color:#4d4d4c;">echo &quot;hello&quot; | figlet
 </span></pre>
 <p>The <code>figlet</code> program, changes the letters in <code>hello</code> to look all bubbly and
 cartoony.</p>
@@ -49,8 +52,8 @@ opinion, is brilliant software design, but I will get into that in a second.</p>
 <p>According to <a href="http://doc.cat-v.org/unix/pipes/">doc.cat-v.org/unix/pipes/</a>, the
 origin of pipes came long before Unix. Pipes can be traced back to this note from
 Doug McIlroy in 1964:</p>
-<pre style="background-color:#fafafa;">
-<span style="background-color:#fafafa;color:#61676c;">          - 10 -
+<pre class="code" style="background-color:#ffffff;">
+<span style="background-color:#ffffff;color:#4d4d4c;">          - 10 -
     Summary--what&#39;s most important.
 
 To put my strongest concerns into a nutshell:
